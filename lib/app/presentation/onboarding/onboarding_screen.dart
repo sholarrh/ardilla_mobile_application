@@ -8,7 +8,7 @@ import '../../../core/constants.dart';
 import '../../../core/reusable_widgets/build_button_widget.dart';
 import '../../../core/reusable_widgets/build_text_widget.dart';
 import '../../../core/size_configuration.dart';
-import '../authentication/sign_up/sign_up_1.0.dart';
+import '../authentication/sign_up/sign_up_1.0/sign_up_1.0.dart';
 
 
 class OnBoardingScreen extends StatefulWidget {
@@ -44,7 +44,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             return SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.only(
-                    right: getProportionateScreenWidth(20),
+                    right: getProportionateScreenWidth(25),
                     left: getProportionateScreenWidth(20),
                     bottom: getProportionateScreenHeight(76)
                 ),
@@ -55,25 +55,30 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     SizedBox(
                       height: getProportionateScreenHeight(20),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            _currentIndex < 2 ?
-                            _pageController.jumpToPage(tabs.length)
-                            : null;
-                          },
-                          child: createGeneralText(
-                            inputText: 'Skip',
-                            fontSize: 16,
-                            weight: FontWeight.w700,
-                            colorName: Palette.primaryColor,
-                            family: FontFamily.cabinetBold,
-                            textAlign: TextAlign.center,
+                    Padding(
+                      padding:  EdgeInsets.only(
+                          right: getProportionateScreenWidth(14)
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              _currentIndex < 2 ?
+                              _pageController.jumpToPage(tabs.length)
+                              : null;
+                            },
+                            child: createGeneralText(
+                              inputText: 'Skip',
+                              fontSize: 16,
+                              weight: FontWeight.w700,
+                              colorName: Palette.primaryColor,
+                              family: FontFamily.cabinetBold,
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: getProportionateScreenHeight(36),

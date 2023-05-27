@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/reusable_widgets/build_text_widget.dart';
 import '../../../core/reusable_widgets/coming_soon_container.dart';
+import '../../../core/reusable_widgets/log_out_dialog.dart';
 import '../../../core/size_configuration.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -146,66 +147,15 @@ class MyDrawer extends StatelessWidget {
               colorName: Palette.whiteColor,
               family: FontFamily.cabinetRegular,
             ),
-            onTap: () {_showLogoutDialog(context);},
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) => const LogOutDialog()
+              );
+              },
           ),
         ],
       ),
-    );
-  }
-  void _showLogoutDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          alignment: Alignment.center,
-          content: createGeneralText(
-            inputText: 'Are you sure you want to LOG OUT?',
-            fontSize: 14,
-            weight: FontWeight.w500,
-            colorName: Palette.textColor,
-            family: FontFamily.cabinetRegular,
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => const Login()),
-                        (route) => false);
-              },
-              child: Container(
-                height: getProportionateScreenHeight(44),
-                  width: getProportionateScreenWidth(98),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: const Color(0xffFCE4EB),
-                    borderRadius: BorderRadius.circular(8)
-                  ),
-                  child: createGeneralText(
-                    inputText: 'Confirm',
-                    fontSize: 14,
-                    weight: FontWeight.w500,
-                    colorName: Palette.secondaryColor,
-                    family: FontFamily.cabinetRegular,
-                  ),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: createGeneralText(
-                inputText: 'No, Cancel',
-                fontSize: 14,
-                weight: FontWeight.w500,
-                colorName: Palette.blackColor,
-                family: FontFamily.cabinetRegular,
-              ),
-            ),
-          ],
-        );
-      },
     );
   }
 }

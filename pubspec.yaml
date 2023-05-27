@@ -21,6 +21,8 @@ dependencies:
   percent_indicator: ^4.2.2
   top_snackbar_flutter: ^3.0.0+1
   flutter_svg: ^1.1.6
+  iconly: ^1.0.1
+  iconsax: ^0.0.8
 
 
 dev_dependencies:
@@ -35,7 +37,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - images/
-    - icons/
 
   fonts:
     - family: CabinetGrotesk

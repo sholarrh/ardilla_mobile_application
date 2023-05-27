@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 
+import 'app/presentation/home/dashboard.dart';
 import 'app/presentation/onboarding/splash_screen.dart';
 
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       // theme: ThemeData(
       //   primarySwatch: Palette.primaryColor,
       // ),
-      home: SplashScreen(),
+      home: DashBoard(),
       debugShowCheckedModeBanner: false,
     );
   }

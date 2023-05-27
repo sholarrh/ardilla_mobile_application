@@ -9,6 +9,7 @@ import '../../../../core/reusable_widgets/build_text_form_field.dart';
 import '../../../../core/reusable_widgets/build_text_widget.dart';
 import '../../../../core/reusable_widgets/validator.dart';
 import '../../../../core/size_configuration.dart';
+import '../login/login.dart';
 
 class CompleteYourProfile extends StatefulWidget {
   const CompleteYourProfile({Key? key}) : super(key: key);
@@ -63,7 +64,7 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
                     inputHintText: 'Username',
                     keyboardType: TextInputType.name,
                     prefixIcon: const Icon(
-                      Icons.email_outlined,
+                      Icons.code_off_outlined,
                     ),
                   ),
                   SizedBox(height: getProportionateScreenHeight(20),),
@@ -72,7 +73,7 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
                     inputHintText: 'First Name',
                     keyboardType: TextInputType.name,
                     prefixIcon: const Icon(
-                      Icons.email_outlined,
+                      Icons.person_outline_rounded,
                     ),
                   ),
                   SizedBox(height: getProportionateScreenHeight(20),),
@@ -81,7 +82,7 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
                     inputHintText: 'Last Name',
                     keyboardType: TextInputType.name,
                     prefixIcon: const Icon(
-                      Icons.email_outlined,
+                      Icons.person_outline_rounded,
                     ),
                   ),
                   SizedBox(height: getProportionateScreenHeight(20),),
@@ -90,7 +91,7 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
                     inputHintText: 'Phone Number',
                     keyboardType: TextInputType.number,
                     prefixIcon: const Icon(
-                      Icons.email_outlined,
+                      Icons.smartphone_outlined,
                     ),
                   ),
                   SizedBox(height: getProportionateScreenHeight(20),),
@@ -99,7 +100,7 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
                     inputHintText: 'Invite code (optional)',
                     keyboardType: TextInputType.name,
                     prefixIcon: const Icon(
-                      Icons.email_outlined,
+                      Icons.people_alt_outlined,
                     ),
                   ),
                   SizedBox(height: getProportionateScreenHeight(20),),
@@ -108,8 +109,9 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
                     inputHintText: 'Password',
                     keyboardType: TextInputType.name,
                     prefixIcon: const Icon(
-                      Icons.email_outlined,
+                      Icons.lock_outline_rounded,
                     ),
+                    validator: (value) => Validator.validatePassword(value ?? ''),
                   ),
                   SizedBox(height: getProportionateScreenHeight(30),),
                   RichText(
@@ -152,7 +154,7 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const CompleteYourProfile()
+                              builder: (context) => const Login()
                           )
                       );
                     },

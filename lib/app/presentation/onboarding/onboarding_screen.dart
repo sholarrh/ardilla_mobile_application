@@ -5,9 +5,10 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../core/constants.dart';
-import '../../../core/reusable_widgets/build_button_widget.dart';
 import '../../../core/reusable_widgets/build_text_widget.dart';
+import '../../../core/reusable_widgets/forward_arrow.dart';
 import '../../../core/size_configuration.dart';
+import '../../data/models/onboarding_model.dart';
 import '../authentication/sign_up/sign_up_1.0/sign_up_1.0.dart';
 
 
@@ -154,7 +155,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                     duration: const Duration(
                                         milliseconds: 300,
                                     ),
-                                    curve: Curves.linear)
+                                    curve: Curves.linear,
+                                )
                                     : Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -162,21 +164,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                           const GetStartedScreen()),
                                 );
                               },
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: getProportionateScreenWidth(65),
-                                height: getProportionateScreenHeight(65),
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Palette.primaryColor,
-                                ),
-                                child: Icon(
-                                  Icons.arrow_forward,
-                                  size:
-                                  getProportionateScreenHeight(33),
-                                  color: Palette.whiteColor,
-                                ),
-                              ),
+                              child: const ForwardArrow(),
                             ),
                           ),
                         ],
@@ -203,34 +191,3 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     );
   }
 }
-
-class OnBoardingModel {
-  final String assetImage;
-  final String title;
-  final String subtitle;
-
-  OnBoardingModel(
-      this.assetImage,
-      this.title,
-      this.subtitle,
-      );
-}
-
-List<OnBoardingModel> tabs = [
-  OnBoardingModel(
-    'images/onboarding.png',
-    'Lorem Ipsum Kip\nAntares Lorem',
-    'Lorem ipsum dolor sit amet consectetur. Congue eget\naliquet nullam velit volutpat in viverra. Amet integer\nurna ornare congue ultrices at.',
-  ),
-  OnBoardingModel(
-    'images/onboarding.png',
-    'Lorem Ipsum Kip\nAntares Lorem',
-    'Lorem ipsum dolor sit amet consectetur. Congue eget\naliquet nullam velit volutpat in viverra. Amet integer\nurna ornare congue ultrices at.',
-  ),
-  OnBoardingModel(
-    'images/onboarding.png',
-    'Lorem Ipsum Kip\nAntares Lorem',
-    'Lorem ipsum dolor sit amet consectetur. Congue eget\naliquet nullam velit volutpat in viverra. Amet integer\nurna ornare congue ultrices at.',
-  ),
-];
-

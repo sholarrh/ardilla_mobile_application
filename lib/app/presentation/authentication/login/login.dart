@@ -1,27 +1,31 @@
-import 'package:ardilla_mobile_application/app/presentation/authentication/login/login.dart';
+
+
+import 'package:ardilla_mobile_application/app/presentation/authentication/login/sign_in_with_san_button.dart';
 import 'package:ardilla_mobile_application/app/presentation/authentication/sign_up/sign_up_1.0/purple_row.dart';
+import 'package:ardilla_mobile_application/app/presentation/authentication/sign_up/sign_up_1.0/sign_up_1.0.dart';
 import 'package:ardilla_mobile_application/app/presentation/authentication/sign_up/sign_up_1.0/sign_up_1.0_heading.dart';
-import 'package:ardilla_mobile_application/core/constants.dart';
-import 'package:ardilla_mobile_application/core/reusable_widgets/validator.dart';
-import 'package:ardilla_mobile_application/core/size_configuration.dart';
+import 'package:ardilla_mobile_application/app/presentation/home/dashboard.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/reusable_widgets/build_button_widget.dart';
-import '../../../../../core/reusable_widgets/build_text_form_field.dart';
-import '../../../../../core/reusable_widgets/build_text_widget.dart';
-import '../sign_up_1.2.dart';
+import '../../../../core/constants.dart';
+import '../../../../core/reusable_widgets/build_button_widget.dart';
+import '../../../../core/reusable_widgets/build_text_form_field.dart';
+import '../../../../core/reusable_widgets/build_text_widget.dart';
+import '../../../../core/reusable_widgets/validator.dart';
+import '../../../../core/size_configuration.dart';
 
-class GetStartedScreen extends StatefulWidget {
-  const GetStartedScreen({Key? key}) : super(key: key);
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
 
   @override
-  State<GetStartedScreen> createState() => _GetStartedScreenState();
+  State<Login> createState() => _LoginState();
 }
 
-class _GetStartedScreenState extends State<GetStartedScreen> {
+class _LoginState extends State<Login> {
 
   final TextEditingController _emailController = TextEditingController();
-  final GlobalKey<FormState> _emailKey = GlobalKey<FormState>();
+  final TextEditingController _passwordController = TextEditingController();
+  final GlobalKey<FormState> _loginKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +58,12 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                       left: getProportionateScreenWidth(35),
                     ),
                     child: Form(
-                      key: _emailKey,
+                      key: _loginKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           createGeneralText(
-                            inputText: 'Get Started',
+                            inputText: 'Welcome !',
                             fontSize: 36,
                             weight: FontWeight.w700,
                             colorName: Palette.textColor,
@@ -67,20 +71,18 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(
-                            height: getProportionateScreenHeight(12),
+                            height: getProportionateScreenHeight(8),
                           ),
                           createGeneralText(
                             inputText:
-                                'To Create an account enter a valid email address',
+                            'Here’s how to Log in to access your account',
                             fontSize: 12,
                             weight: FontWeight.w400,
                             colorName: Palette.gray500Color,
                             family: FontFamily.cabinetRegular,
                             textAlign: TextAlign.center,
                           ),
-                          SizedBox(
-                            height: getProportionateScreenHeight(35),
-                          ),
+                          SizedBox(height: getProportionateScreenHeight(35),),
                           InputField(
                             inputController: _emailController,
                             inputHintText: 'Email address',
@@ -90,26 +92,58 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                             ),
                             validator: (value) => Validator.validateEmail(value ?? ''),
                           ),
-                          SizedBox(
-                            height: getProportionateScreenHeight(276),
+                          SizedBox(height: getProportionateScreenHeight(20),),
+                          InputField(
+                            inputController: _passwordController,
+                            inputHintText: 'Password',
+                            keyboardType: TextInputType.name,
+                            prefixIcon: const Icon(
+                              Icons.lock_outline_rounded,
+                            ),
+                            validator: (value) => Validator.validatePassword(value ?? ''),
                           ),
+                          SizedBox(height: getProportionateScreenHeight(12),),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              createGeneralText(
+                                inputText:
+                                'Forgot Password?',
+                                fontSize: 11,
+                                weight: FontWeight.w500,
+                                colorName: Palette.primaryColor,
+                                family: FontFamily.cabinetRegular,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: getProportionateScreenHeight(32),),
                           BuildButton(
                             onPressed: () {
-                              _doEmailVerification();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const DashBoard()
+                                  )
+                              );
                             },
-                            buttonText: 'Continue',
+                            buttonText: 'Log In',
                             buttonTextColor: Palette.whiteColor,
                             buttonColor: Palette.primaryColor,
                             borderColor: Palette.gray200Color,
                           ),
                           SizedBox(
-                            height: getProportionateScreenHeight(47),
+                            height: getProportionateScreenHeight(74),
+                          ),
+                          const SANButton(),
+                          SizedBox(
+                            height: getProportionateScreenHeight(30),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               createGeneralText(
-                                inputText: 'Already have an account? ',
+                                inputText: 'New user? ',
                                 fontSize: 12,
                                 weight: FontWeight.w500,
                                 colorName: Palette.gray500Color,
@@ -121,12 +155,12 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => const Login()
+                                          builder: (context) => const GetStartedScreen()
                                       )
                                   );
                                 },
                                 child: createGeneralText(
-                                  inputText: 'Sign in',
+                                  inputText: 'Create Account',
                                   fontSize: 12,
                                   weight: FontWeight.w500,
                                   colorName: Palette.primaryColor,
@@ -148,23 +182,4 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       ),
     );
   }
-  void _doEmailVerification() async {
-    if (_emailKey.currentState?.validate() ?? false) {
-      _emailKey.currentState?.save();
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const VerifyEmailAddress()
-            )
-        );
-      } else {
-        // failureTopSnackBar(
-        //   context: context,
-        //   message: response.responseMessage.toString() == 'null'
-        //       ? 'Error, check your inputs'
-        //       : response.responseMessage.toString(),
-        // );
-      }
-    }
-
 }

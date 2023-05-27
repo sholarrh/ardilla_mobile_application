@@ -13,6 +13,7 @@ import '../../../../core/reusable_widgets/build_text_form_field.dart';
 import '../../../../core/reusable_widgets/build_text_widget.dart';
 import '../../../../core/reusable_widgets/validator.dart';
 import '../../../../core/size_configuration.dart';
+import '../../home/bottom_navigation/navigation_bar.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -123,7 +124,7 @@ class _LoginState extends State<Login> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const DashBoard()
+                                      builder: (context) => const Nav()
                                   )
                               );
                             },

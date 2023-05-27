@@ -23,6 +23,8 @@ dependencies:
   flutter_svg: ^1.1.6
   iconly: ^1.0.1
   iconsax: ^0.0.8
+  persistent_bottom_nav_bar_v2: ^4.2.6
+  provider: ^6.0.5
 
 
 dev_dependencies:

@@ -9,6 +9,7 @@ class Palette {
   static const Color whiteColor = Color(0xFFFFFFFF);
   static const Color blackColor = Color(0xFF000000);
   static const Color textColor = Color(0xFF3D0072);
+  static const Color text2Color = Color(0xFFF6EBFF);
   static const Color gray200Color = Color(0xFFE5E7EB);
   static const Color gray400Color = Color(0xFF9CA3AF);
   static const Color gray500Color = Color(0xFF6B7280);

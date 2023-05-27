@@ -7,6 +7,7 @@ import 'package:iconsax/iconsax.dart';
 import '../../../core/reusable_widgets/build_text_widget.dart';
 import '../../../core/size_configuration.dart';
 import 'complete_kyc_container.dart';
+import 'drawer.dart';
 import 'explore.dart';
 import 'investment_builder.dart';
 
@@ -18,10 +19,15 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: const MyDrawer(),
       backgroundColor: Palette.whiteColor,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -42,10 +48,20 @@ class _DashBoardState extends State<DashBoard> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          height: getProportionateScreenHeight(51),
+                        GestureDetector(
+                          onTap: () {
+                            if(_scaffoldKey.currentState!.isDrawerOpen){
+                              _scaffoldKey.currentState!.closeDrawer();
+                            }else{
+                              _scaffoldKey.currentState!.openDrawer();
+                            }
+                          },
+                          child: SizedBox(
+                            height: getProportionateScreenHeight(51),
                             width: getProportionateScreenWidth(51),
-                            child: Image.asset('images/profile picture.png')),
+                            child: Image.asset('images/profile picture.png'),
+                          ),
+                        ),
                         SizedBox(
                           width: getProportionateScreenWidth(20),
                         ),
@@ -104,44 +120,7 @@ class _DashBoardState extends State<DashBoard> {
                 SizedBox(height: getProportionateScreenHeight(69),),
                 const VideoContainer(),
                 SizedBox(height: getProportionateScreenHeight(48.6),),
-                MediaQuery.removePadding(
-                  context: context,
-                    removeRight: true,
-                    removeLeft: true,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        createGeneralText(
-                          inputText: 'Explore',
-                          fontSize: 16,
-                          weight: FontWeight.w500,
-                          colorName: Palette.textColor,
-                          family: FontFamily.cabinetRegular,
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(height: getProportionateScreenHeight(20),),
-                        SizedBox(
-                          height: getProportionateScreenHeight(198),
-                          width: getProportionateScreenWidth(1069),
-                          child: ListView(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              physics: const BouncingScrollPhysics(),
-                              children: [
-                                Container(
-                                  height: getProportionateScreenHeight(198),
-                                  width: getProportionateScreenWidth(1069),
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage('images/explore.png')
-                                      )
-                                  ),
-                                ),
-                              ]
-                          ),
-                        )
-                      ],
-                    )),
+                const Explore(),
 
               ],
             ),

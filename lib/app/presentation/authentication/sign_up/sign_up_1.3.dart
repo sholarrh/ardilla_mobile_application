@@ -9,6 +9,7 @@ import '../../../../core/reusable_widgets/build_text_form_field.dart';
 import '../../../../core/reusable_widgets/build_text_widget.dart';
 import '../../../../core/reusable_widgets/validator.dart';
 import '../../../../core/size_configuration.dart';
+import '../../../data/data_storage/user_profile_storage.dart';
 import '../login/login.dart';
 
 class CompleteYourProfile extends StatefulWidget {
@@ -90,6 +91,7 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
                     inputController: _phoneNumberController,
                     inputHintText: 'Phone Number',
                     keyboardType: TextInputType.number,
+                    maxLength: 11,
                     prefixIcon: const Icon(
                       Icons.smartphone_outlined,
                     ),
@@ -151,12 +153,7 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
                   SizedBox(height: getProportionateScreenHeight(33),),
                   BuildButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Login()
-                          )
-                      );
+                      _doCreateAccount();
                     },
                     buttonText: 'Create Account',
                     buttonTextColor: Palette.whiteColor,
@@ -170,5 +167,27 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
         ),
       ),
     );
+  }
+  void _doCreateAccount() async {
+    if (_createAccountKey.currentState?.validate() ?? false) {
+      _createAccountKey.currentState?.save();
+      await UserProfileStorage.storeUserName(_userNameController.text);
+      await UserProfileStorage.storeFirstName(_firstNameController.text);
+      await UserProfileStorage.storeLastName(_lastNameController.text);
+      if (!mounted) return;
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const Login()
+          )
+      );
+    } else {
+      // failureTopSnackBar(
+      //   context: context,
+      //   message: response.responseMessage.toString() == 'null'
+      //       ? 'Error, check your inputs'
+      //       : response.responseMessage.toString(),
+      // );
+    }
   }
 }

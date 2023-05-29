@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import '../../../../../core/reusable_widgets/build_button_widget.dart';
 import '../../../../../core/reusable_widgets/build_text_form_field.dart';
 import '../../../../../core/reusable_widgets/build_text_widget.dart';
+import '../../../../data/data_storage/user_profile_storage.dart';
 import '../sign_up_1.2.dart';
 
 class GetStartedScreen extends StatefulWidget {
@@ -151,6 +152,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   void _doEmailVerification() async {
     if (_emailKey.currentState?.validate() ?? false) {
       _emailKey.currentState?.save();
+
         Navigator.push(
             context,
             MaterialPageRoute(

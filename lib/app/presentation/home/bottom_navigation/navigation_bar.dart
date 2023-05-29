@@ -1,13 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/constants.dart';
 import '../../../../core/provider/home_provider/navigation_bar_provider.dart';
-import '../../../../core/reusable_widgets/build_nav_icons.dart';
 import '../../../../core/size_configuration.dart';
 import '../dashboard.dart';
 import 'other_screens.dart';
@@ -72,23 +69,15 @@ class _NavState extends State<Nav> {
         inactiveColorPrimary: Palette.gray500Color,
       ),
       PersistentBottomNavBarItem(
-        inactiveIcon: const Icon(
-          Iconsax.profile_add,
-        ),
-        icon: const Icon(
-          Iconsax.profile_add,
-        ),
+        inactiveIcon: Image.asset('images/learn icon.png'),
+        icon: Image.asset('images/learn icon.png'),
         title: "Learn",
         activeColorPrimary: Palette.primaryColor,
         inactiveColorPrimary: Palette.gray500Color,
       ),
       PersistentBottomNavBarItem(
-        inactiveIcon: const Icon(
-            Iconsax.empty_wallet4,
-        ),
-        icon: const Icon(
-            Iconsax.empty_wallet4,
-        ),
+        inactiveIcon: Image.asset('images/wallet icon.png'),
+        icon: Image.asset('images/wallet icon.png'),
         title: "Dilla",
         activeColorPrimary: Palette.primaryColor,
         inactiveColorPrimary: Palette.gray500Color,

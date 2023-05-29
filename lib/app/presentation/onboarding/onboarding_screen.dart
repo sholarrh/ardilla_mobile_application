@@ -136,7 +136,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             effect: ExpandingDotsEffect(
                               dotHeight: getProportionateScreenHeight(7),
                               dotWidth: getProportionateScreenWidth(7),
-                              dotColor: Palette.dotColor,
+                              dotColor: Palette.gray400Color,
                               spacing: getProportionateScreenWidth(2),
                               activeDotColor: Palette.primaryColor,
                               expansionFactor: 6,

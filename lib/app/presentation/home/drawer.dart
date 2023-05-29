@@ -1,4 +1,4 @@
-import 'package:ardilla_mobile_application/app/presentation/authentication/login/login.dart';
+
 import 'package:ardilla_mobile_application/core/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,12 +7,16 @@ import '../../../core/reusable_widgets/build_text_widget.dart';
 import '../../../core/reusable_widgets/coming_soon_container.dart';
 import '../../../core/reusable_widgets/log_out_dialog.dart';
 import '../../../core/size_configuration.dart';
+import '../../data/data_storage/user_profile_storage.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    String firstName = UserProfileStorage.retrieveFirstName();
+    String lastName = UserProfileStorage.retrieveLastName();
+    String fullName = '$firstName $lastName';
     return Drawer(
       width: getProportionateScreenWidth(270),
       backgroundColor: Palette.primaryColor,
@@ -34,7 +38,7 @@ class MyDrawer extends StatelessWidget {
                   height: getProportionateScreenHeight(18),
                 ),
                 createGeneralText(
-                  inputText: 'Anita Ojieh',
+                  inputText: fullName,
                   fontSize: 18,
                   weight: FontWeight.w700,
                   colorName: Palette.whiteColor,

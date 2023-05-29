@@ -13,6 +13,7 @@ class Palette {
   static const Color gray200Color = Color(0xFFE5E7EB);
   static const Color gray400Color = Color(0xFF9CA3AF);
   static const Color gray500Color = Color(0xFF6B7280);
+  static const Color amber400Color = Color(0xFFFBBF24);
   static const Color dotColor = Color(0xFF14B8A6);
   static const Color teal500Color = Color(0xFFE7CDFE);
   static const Color yellow400Color = Color(0xFFFACC15);

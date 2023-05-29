@@ -49,25 +49,28 @@ class _InvestmentBuilderState extends State<InvestmentBuilder> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            buildContainer(
-                isForward: false,
-                onTap: () {
-                  scrollToPreviousItem();
+        Padding(
+          padding: EdgeInsets.only(right: getProportionateScreenWidth(30)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              buildContainer(
+                  isForward: false,
+                  onTap: () {
+                    scrollToPreviousItem();
 
-            }),
-            SizedBox(
-              width: getProportionateScreenWidth(14.9),
-            ),
-            buildContainer(
-                isForward: true,
-                onTap: () {
-                  scrollToNextItem();
-                }
-            ),
-          ],
+              }),
+              SizedBox(
+                width: getProportionateScreenWidth(14.9),
+              ),
+              buildContainer(
+                  isForward: true,
+                  onTap: () {
+                    scrollToNextItem();
+                  }
+              ),
+            ],
+          ),
         ),
         SizedBox(
           height: getProportionateScreenHeight(16.9),

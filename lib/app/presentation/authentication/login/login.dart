@@ -4,7 +4,6 @@ import 'package:ardilla_mobile_application/app/presentation/authentication/login
 import 'package:ardilla_mobile_application/app/presentation/authentication/sign_up/sign_up_1.0/purple_row.dart';
 import 'package:ardilla_mobile_application/app/presentation/authentication/sign_up/sign_up_1.0/sign_up_1.0.dart';
 import 'package:ardilla_mobile_application/app/presentation/authentication/sign_up/sign_up_1.0/sign_up_1.0_heading.dart';
-import 'package:ardilla_mobile_application/app/presentation/home/dashboard.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants.dart';
@@ -27,6 +26,7 @@ class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _loginKey = GlobalKey<FormState>();
+  bool _isObscured = true;
 
   @override
   Widget build(BuildContext context) {
@@ -94,13 +94,18 @@ class _LoginState extends State<Login> {
                             validator: (value) => Validator.validateEmail(value ?? ''),
                           ),
                           SizedBox(height: getProportionateScreenHeight(20),),
-                          InputField(
+                          BuildPasswordInputField(
+                            isObscured: _isObscured,
                             inputController: _passwordController,
                             inputHintText: 'Password',
-                            keyboardType: TextInputType.name,
                             prefixIcon: const Icon(
-                              Icons.lock_outline_rounded,
-                            ),
+                                  Icons.lock_outline_rounded,
+                                ),
+                            onPressed: () {
+                              setState(() {
+                                _isObscured = !_isObscured;
+                              });
+                            },
                             validator: (value) => Validator.validatePassword(value ?? ''),
                           ),
                           SizedBox(height: getProportionateScreenHeight(12),),
@@ -121,12 +126,7 @@ class _LoginState extends State<Login> {
                           SizedBox(height: getProportionateScreenHeight(32),),
                           BuildButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const Nav()
-                                  )
-                              );
+                              _doLogin();
                             },
                             buttonText: 'Log In',
                             buttonTextColor: Palette.whiteColor,
@@ -182,5 +182,23 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+  void _doLogin() async {
+    if (_loginKey.currentState?.validate() ?? false) {
+      _loginKey.currentState?.save();
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const Nav()
+          )
+      );
+    } else {
+      // failureTopSnackBar(
+      //   context: context,
+      //   message: response.responseMessage.toString() == 'null'
+      //       ? 'Error, check your inputs'
+      //       : response.responseMessage.toString(),
+      // );
+    }
   }
 }

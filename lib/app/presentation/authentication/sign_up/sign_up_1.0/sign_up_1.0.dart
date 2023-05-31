@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import '../../../../../core/reusable_widgets/build_button_widget.dart';
 import '../../../../../core/reusable_widgets/build_text_form_field.dart';
 import '../../../../../core/reusable_widgets/build_text_widget.dart';
-import '../../../../data/data_storage/user_profile_storage.dart';
 import '../sign_up_1.2.dart';
 
 class GetStartedScreen extends StatefulWidget {
@@ -20,7 +19,6 @@ class GetStartedScreen extends StatefulWidget {
 }
 
 class _GetStartedScreenState extends State<GetStartedScreen> {
-
   final TextEditingController _emailController = TextEditingController();
   final GlobalKey<FormState> _emailKey = GlobalKey<FormState>();
 
@@ -89,7 +87,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                             prefixIcon: const Icon(
                               Icons.email_outlined,
                             ),
-                            validator: (value) => Validator.validateEmail(value ?? ''),
+                            validator: (value) =>
+                                Validator.validateEmail(value ?? ''),
                           ),
                           SizedBox(
                             height: getProportionateScreenHeight(276),
@@ -122,9 +121,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => const Login()
-                                      )
-                                  );
+                                          builder: (context) => const Login()));
                                 },
                                 child: createGeneralText(
                                   inputText: 'Sign in',
@@ -149,24 +146,24 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       ),
     );
   }
+
   void _doEmailVerification() async {
     if (_emailKey.currentState?.validate() ?? false) {
       _emailKey.currentState?.save();
 
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const VerifyEmailAddress()
-            )
-        );
-      } else {
-        // failureTopSnackBar(
-        //   context: context,
-        //   message: response.responseMessage.toString() == 'null'
-        //       ? 'Error, check your inputs'
-        //       : response.responseMessage.toString(),
-        // );
-      }
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => VerifyEmailAddress(
+                    email: _emailController.text,
+                  )));
+    } else {
+      // failureTopSnackBar(
+      //   context: context,
+      //   message: response.responseMessage.toString() == 'null'
+      //       ? 'Error, check your inputs'
+      //       : response.responseMessage.toString(),
+      // );
     }
-
+  }
 }

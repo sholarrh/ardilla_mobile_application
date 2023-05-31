@@ -24,4 +24,9 @@ class Validator {
     }
     return null;
   }
+  static String? validateInput(String input) {
+    if (input.isEmpty) {
+      return 'Required field';
+    }return null;
+  }
 }

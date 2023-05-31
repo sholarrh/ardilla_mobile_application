@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "519650724939",
+    "project_id": "ardilla-mobile",
+    "storage_bucket": "ardilla-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519650724939:android:8cc65faee16ae4bb79d1ce",
+        "android_client_info": {
+          "package_name": "com.example.ardilla_mobile_application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAy9x3apb2HXa-x5bzIpwfQFMi6nJUsrUw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

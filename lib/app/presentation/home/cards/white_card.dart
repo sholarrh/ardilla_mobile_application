@@ -2,7 +2,6 @@
 
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 import '../../../../core/constants.dart';
 import '../../../../core/reusable_widgets/build_text_widget.dart';
@@ -122,7 +121,7 @@ class _WhiteCardState extends State<WhiteCard> {
                 inputText: '₦740 /\$1',
                 fontSize: 9,
                 weight: FontWeight.w700,
-                colorName: Color(0xffB69FC9),
+                colorName: const Color(0xffB69FC9),
                 family: FontFamily.cabinetRegular,
                 textAlign: TextAlign.center,
               ),

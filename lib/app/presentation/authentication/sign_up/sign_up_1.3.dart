@@ -1,5 +1,4 @@
 
-
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants.dart';
@@ -10,17 +9,20 @@ import '../../../../core/reusable_widgets/build_text_widget.dart';
 import '../../../../core/reusable_widgets/validator.dart';
 import '../../../../core/size_configuration.dart';
 import '../../../data/data_storage/user_profile_storage.dart';
+import '../../../data/models/user_model.dart';
+import '../../../data/services/firebase_services/create_user.dart';
 import '../login/login.dart';
 
 class CompleteYourProfile extends StatefulWidget {
-  const CompleteYourProfile({Key? key}) : super(key: key);
+  const CompleteYourProfile({Key? key, required this.email}) : super(key: key);
+
+  final String email;
 
   @override
   State<CompleteYourProfile> createState() => _CompleteYourProfileState();
 }
 
 class _CompleteYourProfileState extends State<CompleteYourProfile> {
-
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
@@ -28,6 +30,7 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
   final TextEditingController _inviteCodeController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _createAccountKey = GlobalKey<FormState>();
+  bool _isObscured = true;
 
   @override
   Widget build(BuildContext context) {
@@ -37,20 +40,23 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding:  EdgeInsets.symmetric(
-                horizontal: getProportionateScreenWidth(35)
-            ),
+            padding: EdgeInsets.symmetric(
+                horizontal: getProportionateScreenWidth(35)),
             child: Form(
               key: _createAccountKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: getProportionateScreenHeight(27),),
+                  SizedBox(
+                    height: getProportionateScreenHeight(27),
+                  ),
                   const CustomBackButton(
                     color: Palette.blackColor,
                   ),
-                  SizedBox(height: getProportionateScreenHeight(22),),
+                  SizedBox(
+                    height: getProportionateScreenHeight(22),
+                  ),
                   createGeneralText(
                     inputText: 'Complete your\nprofile',
                     fontSize: 36,
@@ -59,7 +65,9 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
                     family: FontFamily.cabinetBold,
                     textAlign: TextAlign.start,
                   ),
-                  SizedBox(height: getProportionateScreenHeight(43),),
+                  SizedBox(
+                    height: getProportionateScreenHeight(43),
+                  ),
                   InputField(
                     inputController: _userNameController,
                     inputHintText: 'Username',
@@ -67,8 +75,12 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
                     prefixIcon: const Icon(
                       Icons.code_off_outlined,
                     ),
+                    validator: (value) =>
+                        Validator.validateInput(value ?? ''),
                   ),
-                  SizedBox(height: getProportionateScreenHeight(20),),
+                  SizedBox(
+                    height: getProportionateScreenHeight(20),
+                  ),
                   InputField(
                     inputController: _firstNameController,
                     inputHintText: 'First Name',
@@ -76,8 +88,12 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
                     prefixIcon: const Icon(
                       Icons.person_outline_rounded,
                     ),
+                    validator: (value) =>
+                        Validator.validateInput(value ?? ''),
                   ),
-                  SizedBox(height: getProportionateScreenHeight(20),),
+                  SizedBox(
+                    height: getProportionateScreenHeight(20),
+                  ),
                   InputField(
                     inputController: _lastNameController,
                     inputHintText: 'Last Name',
@@ -85,8 +101,12 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
                     prefixIcon: const Icon(
                       Icons.person_outline_rounded,
                     ),
+                    validator: (value) =>
+                        Validator.validateInput(value ?? ''),
                   ),
-                  SizedBox(height: getProportionateScreenHeight(20),),
+                  SizedBox(
+                    height: getProportionateScreenHeight(20),
+                  ),
                   InputField(
                     inputController: _phoneNumberController,
                     inputHintText: 'Phone Number',
@@ -95,8 +115,12 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
                     prefixIcon: const Icon(
                       Icons.smartphone_outlined,
                     ),
+                    validator: (value) =>
+                        Validator.validateInput(value ?? ''),
                   ),
-                  SizedBox(height: getProportionateScreenHeight(20),),
+                  SizedBox(
+                    height: getProportionateScreenHeight(20),
+                  ),
                   InputField(
                     inputController: _inviteCodeController,
                     inputHintText: 'Invite code (optional)',
@@ -105,17 +129,27 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
                       Icons.people_alt_outlined,
                     ),
                   ),
-                  SizedBox(height: getProportionateScreenHeight(20),),
-                  InputField(
+                  SizedBox(
+                    height: getProportionateScreenHeight(20),
+                  ),
+                  BuildPasswordInputField(
+                    isObscured: _isObscured,
                     inputController: _passwordController,
                     inputHintText: 'Password',
-                    keyboardType: TextInputType.name,
                     prefixIcon: const Icon(
                       Icons.lock_outline_rounded,
                     ),
-                    validator: (value) => Validator.validatePassword(value ?? ''),
+                    onPressed: () {
+                      setState(() {
+                        _isObscured = !_isObscured;
+                      });
+                    },
+                    validator: (value) =>
+                        Validator.validatePassword(value ?? ''),
                   ),
-                  SizedBox(height: getProportionateScreenHeight(30),),
+                  SizedBox(
+                    height: getProportionateScreenHeight(30),
+                  ),
                   RichText(
                     text: const TextSpan(
                       style: TextStyle(
@@ -149,8 +183,9 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
                       ],
                     ),
                   ),
-
-                  SizedBox(height: getProportionateScreenHeight(33),),
+                  SizedBox(
+                    height: getProportionateScreenHeight(33),
+                  ),
                   BuildButton(
                     onPressed: () {
                       _doCreateAccount();
@@ -168,26 +203,34 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
       ),
     );
   }
+
   void _doCreateAccount() async {
     if (_createAccountKey.currentState?.validate() ?? false) {
       _createAccountKey.currentState?.save();
+
       await UserProfileStorage.storeUserName(_userNameController.text);
       await UserProfileStorage.storeFirstName(_firstNameController.text);
       await UserProfileStorage.storeLastName(_lastNameController.text);
+
+      final user = UserModel(
+                  email: widget.email,
+                  userName: _userNameController.text,
+                  firstName: _firstNameController.text,
+                  lastName: _lastNameController.text,
+                  phoneNumber: _phoneNumberController.text,
+                  inviteCode: _inviteCodeController.text,
+                );
+
+      CreateUser.createUserAndSaveData(
+          email: widget.email,
+          password: _passwordController.text,
+          data: user.toJson(),
+      );
       if (!mounted) return;
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const Login()
-          )
-      );
-    } else {
-      // failureTopSnackBar(
-      //   context: context,
-      //   message: response.responseMessage.toString() == 'null'
-      //       ? 'Error, check your inputs'
-      //       : response.responseMessage.toString(),
-      // );
+                 context, MaterialPageRoute(builder: (context) => const Login()));
+      print('something');
     }
   }
-}
+
+  }

@@ -97,10 +97,10 @@ class _InputFieldState extends State<InputField> {
               fontWeight: FontWeight.w400,
               color: Palette.gray400Color,
           ),
+          counterText: '',
         ),
         //validator: (value) => Validator.validateEmail(value ?? ''),
-        onChanged: (value) {
-        },
+        onChanged: (value) {},
       ),
     );
   }

@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 
+import '../../app/data/services/firebase_services/log_out_service.dart';
 import '../../app/presentation/authentication/login/login.dart';
 import '../constants.dart';
 import '../size_configuration.dart';
@@ -12,7 +12,7 @@ class LogOutDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-     actionsAlignment: MainAxisAlignment.center,
+      actionsAlignment: MainAxisAlignment.center,
       content: createGeneralText(
         inputText: 'Are you sure you want to LOG OUT?',
         fontSize: 14,
@@ -24,10 +24,10 @@ class LogOutDialog extends StatelessWidget {
         TextButton(
           onPressed: () {
             Navigator.of(context).pop(); // Close the dialog
+            LogOut.logOut();
             Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                    builder: (context) => const Login()),
-                    (route) => false);
+                MaterialPageRoute(builder: (context) => const Login()),
+                (route) => false);
           },
           child: Container(
             height: getProportionateScreenHeight(44),
@@ -35,8 +35,7 @@ class LogOutDialog extends StatelessWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
                 color: const Color(0xffFCE4EB),
-                borderRadius: BorderRadius.circular(8)
-            ),
+                borderRadius: BorderRadius.circular(8)),
             child: createGeneralText(
               inputText: 'Confirm',
               fontSize: 14,

@@ -1,15 +1,15 @@
-
-
 import 'package:ardilla_mobile_application/app/presentation/authentication/login/sign_in_with_san_button.dart';
 import 'package:ardilla_mobile_application/app/presentation/authentication/sign_up/sign_up_1.0/purple_row.dart';
 import 'package:ardilla_mobile_application/app/presentation/authentication/sign_up/sign_up_1.0/sign_up_1.0.dart';
 import 'package:ardilla_mobile_application/app/presentation/authentication/sign_up/sign_up_1.0/sign_up_1.0_heading.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants.dart';
 import '../../../../core/reusable_widgets/build_button_widget.dart';
 import '../../../../core/reusable_widgets/build_text_form_field.dart';
 import '../../../../core/reusable_widgets/build_text_widget.dart';
+import '../../../../core/reusable_widgets/custom_snack_bar.dart';
 import '../../../../core/reusable_widgets/validator.dart';
 import '../../../../core/size_configuration.dart';
 import '../../home/bottom_navigation/navigation_bar.dart';
@@ -22,7 +22,6 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _loginKey = GlobalKey<FormState>();
@@ -76,14 +75,16 @@ class _LoginState extends State<Login> {
                           ),
                           createGeneralText(
                             inputText:
-                            'Here’s how to Log in to access your account',
+                                'Here’s how to Log in to access your account',
                             fontSize: 12,
                             weight: FontWeight.w400,
                             colorName: Palette.gray500Color,
                             family: FontFamily.cabinetRegular,
                             textAlign: TextAlign.center,
                           ),
-                          SizedBox(height: getProportionateScreenHeight(35),),
+                          SizedBox(
+                            height: getProportionateScreenHeight(35),
+                          ),
                           InputField(
                             inputController: _emailController,
                             inputHintText: 'Email address',
@@ -91,30 +92,35 @@ class _LoginState extends State<Login> {
                             prefixIcon: const Icon(
                               Icons.email_outlined,
                             ),
-                            validator: (value) => Validator.validateEmail(value ?? ''),
+                            validator: (value) =>
+                                Validator.validateEmail(value ?? ''),
                           ),
-                          SizedBox(height: getProportionateScreenHeight(20),),
+                          SizedBox(
+                            height: getProportionateScreenHeight(20),
+                          ),
                           BuildPasswordInputField(
                             isObscured: _isObscured,
                             inputController: _passwordController,
                             inputHintText: 'Password',
                             prefixIcon: const Icon(
-                                  Icons.lock_outline_rounded,
-                                ),
+                              Icons.lock_outline_rounded,
+                            ),
                             onPressed: () {
                               setState(() {
                                 _isObscured = !_isObscured;
                               });
                             },
-                            validator: (value) => Validator.validatePassword(value ?? ''),
+                            validator: (value) =>
+                                Validator.validatePassword(value ?? ''),
                           ),
-                          SizedBox(height: getProportionateScreenHeight(12),),
+                          SizedBox(
+                            height: getProportionateScreenHeight(12),
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               createGeneralText(
-                                inputText:
-                                'Forgot Password?',
+                                inputText: 'Forgot Password?',
                                 fontSize: 11,
                                 weight: FontWeight.w500,
                                 colorName: Palette.primaryColor,
@@ -123,7 +129,9 @@ class _LoginState extends State<Login> {
                               ),
                             ],
                           ),
-                          SizedBox(height: getProportionateScreenHeight(32),),
+                          SizedBox(
+                            height: getProportionateScreenHeight(32),
+                          ),
                           BuildButton(
                             onPressed: () {
                               _doLogin();
@@ -156,9 +164,8 @@ class _LoginState extends State<Login> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => const GetStartedScreen()
-                                      )
-                                  );
+                                          builder: (context) =>
+                                              const GetStartedScreen()));
                                 },
                                 child: createGeneralText(
                                   inputText: 'Create Account',
@@ -183,22 +190,29 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+
   void _doLogin() async {
     if (_loginKey.currentState?.validate() ?? false) {
       _loginKey.currentState?.save();
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const Nav()
-          )
-      );
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      )
+          .then((value) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const Nav()));
+      }).onError((error, stackTrace) {
+        failureTopSnackBar(
+          context: context,
+          message: error.toString(),
+        );
+      });
     } else {
-      // failureTopSnackBar(
-      //   context: context,
-      //   message: response.responseMessage.toString() == 'null'
-      //       ? 'Error, check your inputs'
-      //       : response.responseMessage.toString(),
-      // );
+      failureTopSnackBar(
+        context: context,
+        message: 'Error, check your inputs',
+      );
     }
   }
 }
